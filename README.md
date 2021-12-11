@@ -7,11 +7,12 @@
 
 # Persiapan
 ## Gambar Subnetting VLSM
-xxx
+![vlsmfix](https://user-images.githubusercontent.com/65168221/145680923-f8497b3f-9f8b-4dae-b9e0-7845b40becf0.png)
 
 ## Gambar Tree
-xxx
+![treeFIx](https://user-images.githubusercontent.com/65168221/145680929-3982f854-bbd4-49d2-82e1-ecc5de5c51df.png)
 
+## IP Table
 Subnet | Jumlah IP | Netmask | NID | Subnetmask
 --- | --- | --- | --- | ---
 A1  	|2        |/30    | 192.169.0.0     | 255.255.255.252     
@@ -252,5 +253,4 @@ allow-query{any;};
 # Soal 6
 
 # Kendala
-1. xxx
-2. xxx
+1. Agak bingung saat tidak menggunakan masquerade
