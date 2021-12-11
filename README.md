@@ -280,7 +280,7 @@ Install aplikasi netcat: `apt-get install netcat`.
   ![image](https://user-images.githubusercontent.com/72863287/145680854-1f18141a-9d47-4bac-b17a-c3d7bd956a19.png)
   ![image](https://user-images.githubusercontent.com/72863287/145680885-299d9f1f-e1d0-4e48-aae4-133e48c8dd01.png)
 
-- Pada FOOSHA ketikkan: `nmap -p 80 192.186.0.18` atau `nmap -p 80 192.186.0.19`.
+- Pada FOOSHA ketikkan: `nmap -p 80 192.169.0.18` atau `nmap -p 80 192.169.0.19`.
 
   ![image](https://user-images.githubusercontent.com/72863287/145680862-a802c405-81fa-485e-ac6e-c49c86a04316.png)
 
@@ -363,13 +363,13 @@ iptables -t nat -A POSTROUTING -p tcp -d 192.169.0.27 --dport 80 -j SNAT --to-so
 - Pada ELENA dan FUKUROU ketikkan: `nc 192.169.0.18 80`
 - Ketikkan sembarang kata pada ELENA atau FUKUROU, nanti akan muncul pada JORGE atau MAINGATE.
 
-![image](https://user-images.githubusercontent.com/72863287/145681535-294901a6-41db-4aaa-b198-0814fa84af37.png)
-
 ![image](https://user-images.githubusercontent.com/72863287/145681552-73798535-0826-43ce-a7d7-fa5c9792c67b.png)
 
-![image](https://user-images.githubusercontent.com/72863287/145681562-b5019564-6d42-4347-a538-597d33e56d95.png)
+![image](https://user-images.githubusercontent.com/72863287/145681535-294901a6-41db-4aaa-b198-0814fa84af37.png)
 
 ![image](https://user-images.githubusercontent.com/72863287/145681587-bb7c8136-381f-48d1-801d-5e13af0efc7f.png)
+
+![image](https://user-images.githubusercontent.com/72863287/145681562-b5019564-6d42-4347-a538-597d33e56d95.png)
 
 # Kendala
 1. Agak bingung saat tidak menggunakan masquerade
