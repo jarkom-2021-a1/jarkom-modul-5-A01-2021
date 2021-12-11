@@ -299,6 +299,9 @@ Lakukan ping ke JIPANGU atau DORIKI dari 4 client secara bersamaan.
 
 ![image](https://user-images.githubusercontent.com/72863287/145680962-1bce30ed-a475-4f03-bc17-ab8386ce1b79.png)
 ![image](https://user-images.githubusercontent.com/72863287/145681033-b4d9925a-677e-4b79-b4d6-2724c0a81166.png)
+![image](https://user-images.githubusercontent.com/72863287/145681180-82bf4221-c116-4f90-91d5-e8c1dbda4278.png)
+![image](https://user-images.githubusercontent.com/72863287/145681197-99175e32-8bf5-4e2c-be26-940c2ef57e8f.png)
+
 
 # Soal 4
 Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis.
@@ -314,7 +317,13 @@ iptables -A INPUT -s 192.169.4.0/22 -j REJECT
 
 **Testing**
 - Pada BLUENO ubah waktu: `date -s "3 DEC 2021 13:00:00"` dan ping DORIKI.
+
+![image](https://user-images.githubusercontent.com/72863287/145681250-f8e7be07-9190-42c3-8b3f-7841700b6365.png)
+
 - Pada CIPHER ubah waktu: `date -s "8 DEC 2021 13:00:00"` dan ping DORIKI.
+
+![image](https://user-images.githubusercontent.com/72863287/145681297-a17ec188-026e-49b8-a878-bf8d543c7c39.png)
+
 
 # Soal 5
 Akses dari subnet Elena dan Fukurou hanya diperbolehkan pada pukul 15.01 hingga pukul 06.59 setiap harinya.
@@ -328,7 +337,13 @@ iptables -A INPUT -s 192.169.1.0/24 -m time --timestart 07:00 --timestop 15:00 -
 
 **Testing**
 - Pada ELENA ubah waktu: `date -s "8 DEC 2021 13:00:00"` dan ping DORIKI.
+
+![image](https://user-images.githubusercontent.com/72863287/145681337-a082c817-905c-455c-a9c7-fbc2fd5cf039.png)
+
 - Pada FUKUROU ubah waktu: `date -s "8 DEC 2021 18:00:00"` dan ping DORIKI.
+
+![image](https://user-images.githubusercontent.com/72863287/145681375-48de4684-47ca-447c-bcc9-eeb50df75555.png)
+
 
 # Soal 6
 Karena kita memiliki 2 Web Server, Luffy ingin Guanhao disetting sehingga setiap request dari client yang mengakses DNS Server akan didistribusikan secara bergantian pada Jorge dan Maingate.
