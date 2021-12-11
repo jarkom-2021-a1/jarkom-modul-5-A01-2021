@@ -357,6 +357,19 @@ iptables -t nat -A POSTROUTING -p tcp -d 192.169.0.26 --dport 80 -j SNAT --to-so
 iptables -t nat -A POSTROUTING -p tcp -d 192.169.0.27 --dport 80 -j SNAT --to-source 192.169.0.18:80
 ```
 
+**Testing**
+- Pada JORGE, MAINGATE, ELENA, dan FUKUROU install aplikasi netcat: `apt-get install netcat`.
+- Pada JORGE dan MAINGATE ketikkan: `nc -l -p 80`.
+- Pada ELENA dan FUKUROU ketikkan: `nc 192.169.0.18 80`
+- Ketikkan sembarang kata pada ELENA atau FUKUROU, nanti akan muncul pada JORGE atau MAINGATE.
+
+![image](https://user-images.githubusercontent.com/72863287/145681535-294901a6-41db-4aaa-b198-0814fa84af37.png)
+
+![image](https://user-images.githubusercontent.com/72863287/145681552-73798535-0826-43ce-a7d7-fa5c9792c67b.png)
+
+![image](https://user-images.githubusercontent.com/72863287/145681562-b5019564-6d42-4347-a538-597d33e56d95.png)
+
+![image](https://user-images.githubusercontent.com/72863287/145681587-bb7c8136-381f-48d1-801d-5e13af0efc7f.png)
 
 # Kendala
 1. Agak bingung saat tidak menggunakan masquerade
