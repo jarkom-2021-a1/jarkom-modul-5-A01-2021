@@ -245,12 +245,103 @@ allow-query{any;};
 ```
 3. Restart bind9 ```service bind9 restart```
 
+
 # Soal 1
+Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Foosha menggunakan iptables, tetapi Luffy tidak ingin menggunakan MASQUERADE.
+
+## Jawaban
+**FOOSHA**
+```
+iptables -t nat -A POSTROUTING -s 192.169.0.0/16 -o eth0 -j SNAT --to-source (ip eth0)
+```
+
+Catatan: ip eth0 didapatkan dengan menjalankan command `ip a` pada FOOSHA.
+
+**BLUENO**
+
+![image](https://user-images.githubusercontent.com/72863287/145680731-50bfa237-50a7-4490-82ad-890ee7872a5a.png)
+
 # Soal 2
+Kalian diminta untuk mendrop semua akses HTTP dari luar Topologi kalian pada server yang merupakan DHCP Server dan DNS Server demi menjaga keamanan.
+
+## Jawaban
+**FOOSHA**
+```
+iptables -A FORWARD -p tcp --dport 80 -d 192.169.0.16/29 -i eth0 -j DROP
+```
+
+**JIPANGU dan DORIKI**
+
+Install aplikasi netcat: `apt-get install netcat`.
+
+**Testing**
+- Pada JIPANGU dan DORIKI ketikkan: `nc -l -p 80`.
+
+  ![image](https://user-images.githubusercontent.com/72863287/145680854-1f18141a-9d47-4bac-b17a-c3d7bd956a19.png)
+  ![image](https://user-images.githubusercontent.com/72863287/145680885-299d9f1f-e1d0-4e48-aae4-133e48c8dd01.png)
+
+- Pada FOOSHA ketikkan: `nmap -p 80 192.186.0.18` atau `nmap -p 80 192.186.0.19`.
+
+  ![image](https://user-images.githubusercontent.com/72863287/145680862-a802c405-81fa-485e-ac6e-c49c86a04316.png)
+
 # Soal 3
+Karena kelompok kalian maksimal terdiri dari 3 orang. Luffy meminta kalian untuk membatasi DHCP dan DNS Server hanya boleh menerima maksimal 3 koneksi ICMP secara bersamaan menggunakan iptables, selebihnya didrop.
+
+## Jawaban
+**JIPANGU dan DORIKI**
+```
+iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
+```
+
+**Testing**
+
+Lakukan ping ke JIPANGU atau DORIKI dari 4 client secara bersamaan.
+
+![image](https://user-images.githubusercontent.com/72863287/145680962-1bce30ed-a475-4f03-bc17-ab8386ce1b79.png)
+![image](https://user-images.githubusercontent.com/72863287/145681033-b4d9925a-677e-4b79-b4d6-2724c0a81166.png)
+
 # Soal 4
+Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis.
+
+## Jawaban
+**DORIKI**
+```
+iptables -A INPUT -s 192.169.0.128/25 -m time --timestart 07:00 --timestop 15:00 --weekdays Mon,Tue,Wed,Thu -j ACCEPT
+iptables -A INPUT -s 192.169.0.128/25 -j REJECT
+iptables -A INPUT -s 192.169.4.0/22 -m time --timestart 07:00 --timestop 15:00 --weekdays Mon,Tue,Wed,Thu -j ACCEPT
+iptables -A INPUT -s 192.169.4.0/22 -j REJECT
+```
+
+**Testing**
+- Pada BLUENO ubah waktu: `date -s "3 DEC 2021 13:00:00"` dan ping DORIKI.
+- Pada CIPHER ubah waktu: `date -s "8 DEC 2021 13:00:00"` dan ping DORIKI.
+
 # Soal 5
+Akses dari subnet Elena dan Fukurou hanya diperbolehkan pada pukul 15.01 hingga pukul 06.59 setiap harinya.
+
+## Jawaban
+**DORIKI**
+```
+iptables -A INPUT -s 192.169.2.0/23 -m time --timestart 07:00 --timestop 15:00 -j REJECT
+iptables -A INPUT -s 192.169.1.0/24 -m time --timestart 07:00 --timestop 15:00 -j REJECT
+```
+
+**Testing**
+- Pada ELENA ubah waktu: `date -s "8 DEC 2021 13:00:00"` dan ping DORIKI.
+- Pada FUKUROU ubah waktu: `date -s "8 DEC 2021 18:00:00"` dan ping DORIKI.
+
 # Soal 6
+Karena kita memiliki 2 Web Server, Luffy ingin Guanhao disetting sehingga setiap request dari client yang mengakses DNS Server akan didistribusikan secara bergantian pada Jorge dan Maingate.
+
+## Jawaban
+**GUANHAO**
+```
+iptables -t nat -A PREROUTING -p tcp -d 192.169.0.18 --dport 80 -m statistic --mode nth --every 2 --packet 0 -j DNAT --to-destination 192.169.0.26:80
+iptables -t nat -A PREROUTING -p tcp -d 192.169.0.18 --dport 80 -j DNAT --to-destination 192.169.0.27:80
+iptables -t nat -A POSTROUTING -p tcp -d 192.169.0.26 --dport 80 -j SNAT --to-source 192.169.0.18:80
+iptables -t nat -A POSTROUTING -p tcp -d 192.169.0.27 --dport 80 -j SNAT --to-source 192.169.0.18:80
+```
+
 
 # Kendala
 1. Agak bingung saat tidak menggunakan masquerade
